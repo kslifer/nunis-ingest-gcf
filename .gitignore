@@ -1,0 +1,5 @@
+# Ignore .ini files
+*.ini
+
+# Except the template
+!nunis-ingest-gcf-strava-athlete.ini

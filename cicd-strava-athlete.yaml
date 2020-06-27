@@ -1,0 +1,7 @@
+steps:
+- name: 'docker.io/library/python:3.7'
+  entrypoint: /bin/sh
+  args: [-c, 'pip install -r requirements.txt', '&&', 'pytest']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+  entrypoint: 'gcloud'
+  args: ['functions', 'deploy', 'ingest-strava-athlete', '--region=us-east1', '--timeout=540s', '--memory=2048MB', '--trigger-topic=ingest_strava_athlete', '--runtime=python37', '--entry-point=run', '--set-env-vars=GCS_BUCKET=nunis-analytics-d123,CONFIG_FILE=nunis-ingest-gcf-strava-athlete.ini,GOOGLE_CLOUD_TRACE_ENABLED=true']
