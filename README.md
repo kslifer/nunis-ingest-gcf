@@ -31,7 +31,7 @@ A beginner-friendly, step-by-step Deployment Guide can be found [here](deploymen
 - Two ingestion modes:
   - "New": load only new activities that have occurred since the previous call to the API (appends to any existing data in BigQuery).
   - "All": load all available activities (truncates and replaces all existing data in BigQuery).
-  - The suggested ingestion mode is "New", as it's more performant and less expensive (though there are are [known issues](#known-issues)).
+  - The suggested ingestion mode is "New", as it's more performant and less expensive (though there are [known issues](#known-issues)).
 - Multitenancy; the module can be configured to ingest data for multiple athletes.
 
 
