@@ -53,7 +53,7 @@ This section contains the steps to provision the infrastructure within Google Cl
 
 
 ## Set the PROJECT_ID Linux Environment Variable
-To simplify the usage of `gcloud` commands, your **Project ID** will be exported into a Linux environment variable. It will be set one time, and then the variable will be references going forward.
+To simplify the usage of `gcloud` commands, your **Project ID** will be exported into a Linux environment variable. It will be set one time, and then the variable will be referenced going forward.
 
 Set the PROJECT_ID environment variable by running the command below in the Cloud Shell, replacing *"nunis-analytics-d123"*  with your GCP Project ID:
 
@@ -237,7 +237,7 @@ The service account used by Cloud Build requires additional permissions to deplo
 ### Obtain and Set the PROJECT_NUM Linux Environment Variable
 The Cloud Build service account is named with the GCP **Project Number**. This is is a unique identifier assigned by Google that is different than the **Project ID**.
 
-To simplify the usage of `gcloud` commands, your **Project Number** will be exported into a Linux environment variable. It will be set one time, and then the variable will be references going forward.
+To simplify the usage of `gcloud` commands, your **Project Number** will be exported into a Linux environment variable. It will be set one time, and then the variable will be referenced going forward.
 
 Set the PROJECT_NUM environment variable by running the command below in the Cloud Shell:
 
@@ -259,7 +259,7 @@ To assign this role, run the command below in the Cloud Shell:
 
 
 ## Obtain and Set the GH_USERNAME Linux Environment Variable
-To simplify the usage of `gcloud` commands, your **Github Username** will be exported into a Linux environment variable. It will be set one time, and then the variable will be references going forward.
+To simplify the usage of `gcloud` commands, your **Github Username** will be exported into a Linux environment variable. It will be set one time, and then the variable will be referenced going forward.
 
 Set the GH_USERNAME environment variable by running the command below in the Cloud Shell, replacing *kslifer* with your Github Username:
 
