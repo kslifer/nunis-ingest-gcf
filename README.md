@@ -22,7 +22,7 @@ When staged for a single athlete's data, this will run well within the quotas of
 
 
 ## Installation
-A beginner-friendly, step-by-step Deployment Guide can be found [here](deploymentguide.md). This guide will walk through the steps to provision, build, and run this module in a Google Cloud Platform project using the Cloud Console and Cloud Shell. It assumes little previous experience with these technologies.
+A beginner-friendly, step-by-step Deployment Guide can be found [here](deployment-guide.md). This guide will walk through the steps to provision, build, and run this module in a Google Cloud Platform project using the Cloud Console and Cloud Shell. It assumes little previous experience with these technologies.
 
 
 ## Features
