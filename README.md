@@ -1,6 +1,16 @@
 # Nunis Running Analytics: nunis-ingest-gcf
 Strava athlete activity ingestion into BigQuery, implemented as a Google Cloud Function.
 
+
+## Table of Contents
+- [Overview](#overview)
+- [Installation](#installation)
+- [Features](#features)
+- [Known Issues](#known-issues)
+- [Future Considerations](#future-considerations)
+- [License](#license)
+
+
 ## Overview
 This repository contains the code for the ingest module of the Nunis Running Analytics project, a running analytics platform built on Google Cloud. This module provides an automated, repeated ingestion of athlete activity data from the [Strava API](https://developers.strava.com/) into BigQuery for downstream transformation and analysis.
 
