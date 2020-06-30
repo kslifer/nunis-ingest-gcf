@@ -41,7 +41,7 @@ A beginner-friendly, step-by-step Deployment Guide can be found [here](deploymen
   - BigQuery doesn't natively care about duplicate data, so any user or configuration error that results in multiple inserts of the same data will lead to duplication. This isn't inherently problematic from an ingestion standpoint, but requires that downstream transformation processes first attempt to deduplicate the data in BigQuery.
 
 
-## Roadmap
+## Future Considerations
 - Automated provisioning of the GCP services with Terraform through a separate Cloud Build pipeline from a separate repo.
 - Integration to the Strava API as a webhook subscription for near real time data availability (which will also eliminate the known issues).
 - Support for other run tracking platforms, should the need arise.
