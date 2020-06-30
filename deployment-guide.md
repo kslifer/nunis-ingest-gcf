@@ -318,11 +318,9 @@ A similar log line that ends with *"finished with status: 'crash'"* indicates an
 ### BigQuery Table
 Select the menu in the upper left corner of the Cloud Console and navigate to BigQuery. On the left side of the UI, your project name will be pinned.
 
-Expanding it will show the **"nunis_analytics_dwh"** dataset. If the data ingestion process ran successfully, you will be able to expand the dataset and see an **"activities_strava_table"** for each athlete that you configured.
+Expanding it will show the **"nunis_analytics_dwh"** dataset. If the data ingestion process ran successfully, you will be able to expand the dataset and see an **"activities_strava_athlete"** table for each athlete that you configured.
 
-To view the athlete data, click on the table, then click the "Query Table" button. This will load a pre-formed select statement. Add a "*" after SELECT, so that the statement reads `"SELECT * FROM..."`. Then remove the "LIMIT" clause at the end of the query to return all rows.
-
-Click the "Run" button. Results should eventually load, with the first 100 displayed. Text at the bottom right of the UI will indicate that you're viewing **"1 - 100 of N"**. The final number "N" is the number of activities that have been ingested for the athlete.
+To view the athlete data, click on the table, then click the "Preview" tab. This will load the first 100 rows of data. Text at the bottom right of the UI will indicate that you're viewing **"1 - 100 of N"**. The final number "N" is the number of activities that have been ingested for the athlete.
 
 ### Cloud Storage JSON Archive
 Select the menu in the upper left corner of the Cloud Console and navigate to Cloud Storage -> Browser. Navigate into your bucket by clicking on the name. Ignore the buckets with "appspot.com" in the name; these are automatically created by Google for the App Engine service.
