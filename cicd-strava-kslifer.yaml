@@ -1,7 +1,9 @@
 steps:
+# Step 0: Install dependencies
 - name: 'docker.io/library/python:3.7'
   entrypoint: /bin/sh
   args: [-c, 'pip install -r requirements.txt', '&&', 'pytest']
+# Step 1: Execute the gcloud command to deploy the function
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
   entrypoint: 'gcloud'
   args: ['functions', 'deploy', 'ingest-strava-kslifer', '--region=us-east1', '--timeout=540s', '--memory=2048MB', '--trigger-topic=ingest_strava_kslifer', '--runtime=python37', '--entry-point=run', '--set-env-vars=GCS_BUCKET=nunis-analytics-d123,CONFIG_FILE=nunis-ingest-gcf-strava-kslifer.ini,GOOGLE_CLOUD_TRACE_ENABLED=true']
