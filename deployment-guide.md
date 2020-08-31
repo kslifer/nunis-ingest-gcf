@@ -46,7 +46,7 @@ Start by [logging into your Cloud Console](https://console.cloud.google.com/) in
 
 Once you've navigated to the project, launch the **Cloud Shell** by clicking on the terminal icon in the upper right corner of the console. The mouseover text is "Activate Cloud Shell". Clicking this icon will launch an embedded terminal session to a Linux Virtual Machine inside of Google Cloud, directly in your web browser window. Cloud Shell comes pre-loaded with the tools and authentication to run the commands in this guide.
 
-Once your terminal session has launched, click on the kebab menu in the upper right corner and select "Boost Cloud Shell" to relaunch your terminal session with an instnace that has more CPU and Memory. (Note: This is optional... but why not?)
+Once your terminal session has launched, click on the kebab menu in the upper right corner and select "Boost Cloud Shell" to relaunch your terminal session with an instance that has more CPU and Memory. (Note: This is optional... but why not?)
 
 
 # Provision Google Cloud Infrastructure
