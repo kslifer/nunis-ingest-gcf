@@ -137,17 +137,17 @@ Form `gcloud` statements, updating **ingest-strava-new-kslifer** and **--topic=i
 
 My instance triggers athletes daily in a 5 minute offset, starting at midnight UTC:
 
-    gcloud scheduler jobs create pubsub ingest-strava-new-kslifer --schedule="0 0 * * *" --topic=ingest_strava_kslifer --message-body="load_new" --description="Load new data"
-    gcloud scheduler jobs create pubsub ingest-strava-new-thebner --schedule="5 0 * * *" --topic=ingest_strava_thebner --message-body="load_new" --description="Load new data"
+    gcloud scheduler jobs create pubsub ingest-strava-new-kslifer --schedule="0 0 * * *" --topic=ingest_strava_kslifer --message-body="load_new" --description="Incrementally load new data"
+    gcloud scheduler jobs create pubsub ingest-strava-new-thebner --schedule="5 0 * * *" --topic=ingest_strava_thebner --message-body="load_new" --description="Incrementally load new data"
 
 ### Provision Cloud Scheduler Job to Reload All Data
 Form `gcloud` statements, updating **ingest-strava-new-kslifer** and **--topic=ingest_strava_kslifer** with your athlete's identifier. The schedule is arbitrarily set to run on the first day of the first month of each year; this should be left as-is. These jobs will be created, then paused.
 
 My instance jobs are below:
 
-    gcloud scheduler jobs create pubsub ingest-strava-all-kslifer --schedule="0 0 1 1 0" --topic=ingest_strava_kslifer --message-body="load_all" --description="Reload all data"
+    gcloud scheduler jobs create pubsub ingest-strava-all-kslifer --schedule="0 0 1 1 0" --topic=ingest_strava_kslifer --message-body="load_all" --description="Drop and reload all data"
     gcloud scheduler jobs pause ingest-strava-all-kslifer
-    gcloud scheduler jobs create pubsub ingest-strava-all-thebner --schedule="0 0 1 1 0" --topic=ingest_strava_thebner --message-body="load_all" --description="Reload all data"
+    gcloud scheduler jobs create pubsub ingest-strava-all-thebner --schedule="0 0 1 1 0" --topic=ingest_strava_thebner --message-body="load_all" --description="Drop and reload all data"
     gcloud scheduler jobs pause ingest-strava-all-thebner
 
 
