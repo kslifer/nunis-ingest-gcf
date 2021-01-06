@@ -111,6 +111,7 @@ Example `gcloud` commands for my instance are below:
 
     gcloud pubsub topics create ingest_strava_kslifer
     gcloud pubsub topics create ingest_strava_thebner
+    gcloud pubsub topics create ingest_strava_afeher
 
 
 ## Provision App Engine Application
@@ -135,20 +136,23 @@ The Cloud Function accepts two triggers:
 ### Provision Cloud Scheduler Job to Load Incremental Data
 Form `gcloud` statements, updating **ingest-strava-new-kslifer** and **--topic=ingest_strava_kslifer** with your athlete's identifier. The schedule can be customized per the [documentation](https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules).
 
-My instance triggers athletes daily in a 5 minute offset, starting at midnight UTC:
+My instance triggers ingestion every 15 minutes:
 
-    gcloud scheduler jobs create pubsub ingest-strava-new-kslifer --schedule="0 0 * * *" --topic=ingest_strava_kslifer --message-body="load_new" --description="Incrementally load new data"
-    gcloud scheduler jobs create pubsub ingest-strava-new-thebner --schedule="5 0 * * *" --topic=ingest_strava_thebner --message-body="load_new" --description="Incrementally load new data"
+    gcloud scheduler jobs create pubsub ingest-strava-new-kslifer --schedule="*/15 * * * *" --topic=ingest_strava_kslifer --message-body="load_new" --description="Incrementally load new data" --time-zone="America/New_York"
+    gcloud scheduler jobs create pubsub ingest-strava-new-thebner --schedule="*/15 * * * *" --topic=ingest_strava_thebner --message-body="load_new" --description="Incrementally load new data" --time-zone="America/New_York"
+    gcloud scheduler jobs create pubsub ingest-strava-new-afeher --schedule="*/15 * * * *" --topic=ingest_strava_afeher --message-body="load_new" --description="Incrementally load new data" --time-zone="America/New_York"
 
 ### Provision Cloud Scheduler Job to Reload All Data
 Form `gcloud` statements, updating **ingest-strava-new-kslifer** and **--topic=ingest_strava_kslifer** with your athlete's identifier. The schedule is arbitrarily set to run on the first day of the first month of each year; this should be left as-is. These jobs will be created, then paused.
 
 My instance jobs are below:
 
-    gcloud scheduler jobs create pubsub ingest-strava-all-kslifer --schedule="0 0 1 1 0" --topic=ingest_strava_kslifer --message-body="load_all" --description="Drop and reload all data"
+    gcloud scheduler jobs create pubsub ingest-strava-all-kslifer --schedule="0 0 1 1 0" --topic=ingest_strava_kslifer --message-body="load_all" --description="Drop and reload all data" --time-zone="America/New_York"
     gcloud scheduler jobs pause ingest-strava-all-kslifer
-    gcloud scheduler jobs create pubsub ingest-strava-all-thebner --schedule="0 0 1 1 0" --topic=ingest_strava_thebner --message-body="load_all" --description="Drop and reload all data"
+    gcloud scheduler jobs create pubsub ingest-strava-all-thebner --schedule="0 0 1 1 0" --topic=ingest_strava_thebner --message-body="load_all" --description="Drop and reload all data" --time-zone="America/New_York"
     gcloud scheduler jobs pause ingest-strava-all-thebner
+    gcloud scheduler jobs create pubsub ingest-strava-all-afeher --schedule="0 0 1 1 0" --topic=ingest_strava_afeher --message-body="load_all" --description="Drop and reload all data" --time-zone="America/New_York"
+    gcloud scheduler jobs pause ingest-strava-all-afeher
 
 
 
@@ -203,7 +207,7 @@ This repo contains a sample manifest for a Cloud Build pipeline (cicd-strava-ath
       args: [-c, 'pip install -r requirements.txt', '&&', 'pytest']
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
       entrypoint: 'gcloud'
-      args: ['functions', 'deploy', 'ingest-strava-athlete', '--region=us-east1', '--timeout=540s', '--memory=2048MB', '--trigger-topic=ingest_strava_athlete', '--runtime=python37', '--entry-point=run', '--set-env-vars=GCS_BUCKET=nunis-analytics-d123,CONFIG_FILE=nunis-ingest-gcf-strava-athlete.ini']
+      args: ['functions', 'deploy', 'ingest-strava-athlete', '--region=us-east1', '--timeout=540s', '--memory=2048MB', '--trigger-topic=ingest_strava_athlete', '--runtime=python38', '--entry-point=run', '--set-env-vars=GCS_BUCKET=nunis-analytics-d123,CONFIG_FILE=nunis-ingest-gcf-strava-athlete.ini']
 
 `Note:`*[This documentation article](https://cloud.google.com/cloud-build/docs/build-config) is a good starting point to understand the syntax of a Cloud Build manifest.*
 
@@ -278,6 +282,7 @@ The syntax **--build-config="cicd-strava-kslifer.yaml"** identifies the Cloud Bu
 
     gcloud beta builds triggers create github --repo-owner=${GH_USERNAME} --repo-name="nunis-ingest-gcf" --branch-pattern="^master$" --included-files="**" --build-config="cicd-strava-kslifer.yaml"
     gcloud beta builds triggers create github --repo-owner=${GH_USERNAME} --repo-name="nunis-ingest-gcf" --branch-pattern="^master$" --included-files="**" --build-config="cicd-strava-thebner.yaml"
+    gcloud beta builds triggers create github --repo-owner=${GH_USERNAME} --repo-name="nunis-ingest-gcf" --branch-pattern="^master$" --included-files="**" --build-config="cicd-strava-afeher.yaml"
 
 
 
