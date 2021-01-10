@@ -112,7 +112,7 @@ def fetch_strava_activities():
             raise RuntimeError(f'{FUNCTION_NAME}: Error while transacting with Strava API: {sys.exc_info()}')
         data = resp.json()
         activities += data
-        if len(data) > 0:
+        if len(activities) > 0:
             logger.log_text(f'{FUNCTION_NAME}: activities returned; setting WRITE_EPOCH to True')
             WRITE_EPOCH = True
         if len(data) < 200:
