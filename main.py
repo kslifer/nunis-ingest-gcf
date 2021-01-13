@@ -25,7 +25,7 @@ ACTION = ACTION_LOAD_NEW
 CONFIGURATION = configparser.ConfigParser()
 STRAVA_ACCESS_TOKEN = ''
 CALLED_EPOCH = ''
-WRITE_EPOCH = False
+#WRITE_EPOCH = False
 
 logging_client = logging.Client()
 logger = logging_client.logger(FUNCTION_NAME)
@@ -81,7 +81,7 @@ def load_strava_access_token():
 
 def fetch_strava_activities():
     global CALLED_EPOCH
-    global WRITE_EPOCH
+    #global WRITE_EPOCH
     global STRAVA_ACCESS_TOKEN
     page, activities = 1, []
     after_epoch = 0
@@ -112,9 +112,9 @@ def fetch_strava_activities():
             raise RuntimeError(f'{FUNCTION_NAME}: Error while transacting with Strava API: {sys.exc_info()}')
         data = resp.json()
         activities += data
-        if len(activities) > 0:
-            logger.log_text(f'{FUNCTION_NAME}: activities returned; setting WRITE_EPOCH to True')
-            WRITE_EPOCH = True
+        #if len(activities) > 0:
+            #logger.log_text(f'{FUNCTION_NAME}: activities returned; setting WRITE_EPOCH to True')
+            #WRITE_EPOCH = True
         if len(data) < 200:
             CALLED_EPOCH = time.time()
             break
@@ -166,8 +166,9 @@ def write_response_to_gcs(activity_json):
         raise RuntimeError(f'Error while transacting with GCS: {sys.exc_info()}')
 
 
-def write_config_to_bucket():
-    if WRITE_EPOCH is True:
+def write_config_to_bucket(activity_json):
+    #if WRITE_EPOCH is True:
+    if len(activity_json) > 0:
         logger.log_text(f"{FUNCTION_NAME}: Updating configuration with epoch value of the current time: {datetime.datetime.fromtimestamp(int(CALLED_EPOCH)).strftime('%Y-%m-%d %H:%M:%S')}")
         CONFIGURATION.set('strava_client', 'strava_current_epoch', f'{CALLED_EPOCH}')
     else:
@@ -202,4 +203,4 @@ def run(event, context=None):
     if len(ACTIVITIES) > 0:
         import_activites_to_bq(ACTIVITIES)
         write_response_to_gcs(ACTIVITIES)
-    write_config_to_bucket()
+    write_config_to_bucket(ACTIVITIES)
