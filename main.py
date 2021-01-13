@@ -167,9 +167,7 @@ def write_response_to_gcs(activity_json):
 
 
 def write_config_to_bucket():
-    global WRITE_EPOCH
-
-    if (WRITE_EPOCH):
+    if WRITE_EPOCH is True:
         logger.log_text(f"{FUNCTION_NAME}: Updating configuration with epoch value of the current time: {datetime.datetime.fromtimestamp(int(CALLED_EPOCH)).strftime('%Y-%m-%d %H:%M:%S')}")
         CONFIGURATION.set('strava_client', 'strava_current_epoch', f'{CALLED_EPOCH}')
     else:
