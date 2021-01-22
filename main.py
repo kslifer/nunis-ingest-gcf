@@ -153,7 +153,7 @@ def import_activites_to_bq(activity_json):
 
 def write_response_to_gcs(activity_json):
     logger.log_text(f'{FUNCTION_NAME}: Archiving response data for {len(activity_json)} activities to Cloud Storage')
-    FILE_NAME = f"{FUNCTION_NAME}/{CONFIGURATION['gcp_dwh']['gcp_bq_table']}-{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.json"
+    FILE_NAME = f"strava_api_responses/{CONFIGURATION['gcp_dwh']['gcp_bq_table']}/{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.json"
     logger.log_text(f"{FUNCTION_NAME}: Writing API response to bucket: {FILE_NAME}")
     GCS_BUCKET = os.environ.get(KEY_EV_GCS_BUCKET)
     try:
